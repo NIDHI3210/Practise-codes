@@ -1,0 +1,47 @@
+import java.time.Year;
+import java.util.Scanner;
+public class Retirement_calculator {
+    public static void main(String args[]){
+        Scanner s=new Scanner(System.in);
+        System.out.println("--------Retirement Calculator---------");
+        //taking input for current age and retirement age
+        System.out.print("What is your current age?");
+        int currentAge=s.nextInt();
+
+        System.out.print("At what age would you like to retire? ");
+        int retirementAge=s.nextInt();
+        //getting current year
+        
+        int current_Year = Year.now().getValue();
+        //validate input ages
+        if (currentAge < 0 || currentAge > 120 || retirementAge < 0 || retirementAge > 120) {
+            System.out.println("Invalid age entered.");
+        return ;
+        }
+        //calculating years left until retirement and retirement year
+        if (retirementAge <= currentAge) {
+            System.out.println("You are already retire!");
+        } else {
+            int years_left = retirementAge - currentAge;
+            int retirement_Year = current_Year + years_left;
+
+            System.out.println("You have " + years_left + " years left until you can retire.");
+            System.out.println("It's " + current_Year + ", so you can retire in " + retirement_Year + ".");
+        }
+        //calculate reduction in benefits for early retirement and years after retirement
+        if (retirementAge < 65) {
+            int reduction = (65 - retirementAge) * 5;
+            System.out.println("Early retirement will reduce benefits by " + reduction + "%.");
+        }
+        //calculate years after retirement based on expected lifespan
+        System.out.print("Enter expected lifespan: ");
+        int lifespan = s.nextInt();
+        //validate expected lifespan input
+        if (lifespan > retirementAge) {
+        System.out.println("You may enjoy " +(lifespan - retirementAge) + " years after retirement.");   
+        } else {
+            System.out.println("Expected lifespan is before retirement age.");
+        }
+        s.close();
+    }
+}
